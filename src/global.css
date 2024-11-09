@@ -1,0 +1,26 @@
+.truncate-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;     /* Limits text to 2 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.flex-auto {
+    flex: 1 1 auto;
+  }
+
+.h-20per{
+    height: 15%;
+}
+
+.h-80per{
+    height: 85%;
+}
+
+/* custom.css */
+.p-timeline-event-opposite {
+    display: none;
+}
+
+
+  
