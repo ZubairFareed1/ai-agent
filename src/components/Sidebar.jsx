@@ -7,6 +7,7 @@ import { FaHistory } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
 import { BiLogOut } from "react-icons/bi";
 import { Tooltip as ReactTooltip } from "react-tooltip";
+import { useNavigate } from "react-router-dom";
 
 import { Avatar } from "primereact/avatar";
 import avator from "../assets/avator4.webp";
@@ -16,6 +17,7 @@ import { Link, NavLink } from "react-router-dom";
 import { useTheme } from "../ThemeContext";
 
 export default function Sidebar() {
+  const navigate = useNavigate();
   const links = [
     {
     
@@ -95,7 +97,7 @@ export default function Sidebar() {
           >
             <button
               className={`no-underline h-full w-full flex justify-content-center align-items-center border-circle bg-transparent border-none cursor-pointer`}
-              onClick={() => {}}
+              onClick={() => {navigate('/login')}}
             >
               {<BiLogOut className="text-white text-3xl" />}
             </button>
