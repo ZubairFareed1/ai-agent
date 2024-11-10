@@ -19,7 +19,7 @@ export default function App() {
         <Route path="/allchats" element={<MainLayout><Allchat /></MainLayout>} />
         <Route path="/login_history" element={<MainLayout><LoginHistory /></MainLayout>} />
         <Route path="/profile" element={<MainLayout><Profile /></MainLayout>} />
-        {/* <Route path="/logout" element={<MainLayout><Logout /></MainLayout>} /> */}
+        <Route path="/logout" element={<MainLayout><Logout /></MainLayout>} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
       </Routes>

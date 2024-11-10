@@ -1,10 +1,12 @@
 import React from 'react'
 import Sidebar from './components/Sidebar'
 import { useTheme } from './ThemeContext.jsx';
+import { DialogProvider } from './context/DialogContext.jsx';
 
 export default function MainLayout({children}) {
   const { theme } = useTheme();
   return (
+    <DialogProvider>
     <div className='flex'>
         {/* Sidebar */}
         <div className='hidden lg:block'>
@@ -18,5 +20,7 @@ export default function MainLayout({children}) {
 
       
     </div>
+    </DialogProvider>
   )
 }
+

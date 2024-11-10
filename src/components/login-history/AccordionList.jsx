@@ -2,6 +2,8 @@ import React from "react";
 import { Accordion, AccordionTab } from "primereact/accordion";
 import { Timeline } from "primereact/timeline";
 import "../../global.css";
+import { useTheme } from "../../ThemeContext";
+
 const loginHistory = [
   {
     id: "1",
@@ -76,13 +78,16 @@ export default function AccordionList() {
 
 function MyAccordion() {
   const groupedHistory = groupLoginHistoryByDate(loginHistory);
+  const { theme } = useTheme();
 
   return (
     <div>
       <Accordion activeIndex={0}>
         {Object.keys(groupedHistory).map((date) => (
-          <AccordionTab header={date} key={date}>
-            <Timeline value={groupedHistory[date]} content={(item) => item.loginTime} className=""/>
+          <AccordionTab header={date} key={date}
+
+          >
+            <Timeline value={groupedHistory[date]} content={(item) =><span>{item.loginTime}</span> } className=""/>
           </AccordionTab>
         ))}
       </Accordion>

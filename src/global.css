@@ -22,5 +22,15 @@
     display: none;
 }
 
+.dark-theme-tab {
+    background-color: #333;
+    color: #fff;
+  }
+  
+  .light-theme-tab {
+    background-color: #f0f0f0;
+    color: #000;
+  }
+
 
   

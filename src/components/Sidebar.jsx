@@ -1,6 +1,4 @@
-import React, { useRef } from "react";
-import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
-import { Toast } from "primereact/toast";
+import React from "react";
 import { Button } from "primereact/button";
 import { BiSolidMessageDots } from "react-icons/bi";
 import { FaHistory } from "react-icons/fa";
@@ -8,16 +6,18 @@ import { FaUser } from "react-icons/fa";
 import { BiLogOut } from "react-icons/bi";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import { useNavigate } from "react-router-dom";
-
+import { Dialog } from "primereact/dialog";
 import { Avatar } from "primereact/avatar";
 import avator from "../assets/avator4.webp";
-
 import { Link, NavLink } from "react-router-dom";
-
 import { useTheme } from "../ThemeContext";
+import { useDialog } from "../context/DialogContext";
+
 
 export default function Sidebar() {
   const navigate = useNavigate();
+  const {handleLogoutClick} = useDialog();
+  const { showDialog, handleConfirmLogout, handleCancelLogout } = useDialog();
   const links = [
     {
     
@@ -97,7 +97,7 @@ export default function Sidebar() {
           >
             <button
               className={`no-underline h-full w-full flex justify-content-center align-items-center border-circle bg-transparent border-none cursor-pointer`}
-              onClick={() => {navigate('/login')}}
+              onClick={handleLogoutClick}
             >
               {<BiLogOut className="text-white text-3xl" />}
             </button>
@@ -117,51 +117,18 @@ export default function Sidebar() {
       <div>
         <Avatar image={avator} size="large" shape="circle" />
       </div>
+       <Dialog
+      header="Confirm Logout"
+      visible={showDialog}
+      style={{ width: '30vw' }} breakpoints={{ '960px': '75vw', '641px': '95vw' }}
+      onHide={handleCancelLogout}  // Directly call handleCancelLogout here
+    >
+      <p>Are you sure you want to log out?</p>
+      <div className="flex justify-content-between">
+        <Button label="Yes" icon="pi pi-check" onClick={handleConfirmLogout} />
+        <Button label="No" icon="pi pi-times" onClick={handleCancelLogout} />
+      </div>
+    </Dialog>
     </div>
   );
 }
-
-// export function Logout() {
-//     const toast = useRef(null);
-
-//     const accept = () => {
-//         toast.current.show({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
-//     }
-
-//     const reject = () => {
-//         toast.current.show({ severity: 'warn', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
-//     }
-
-//     const confirm1 = () => {
-//         confirmDialog({
-//             message: 'Are you sure you want to proceed?',
-//             header: 'Confirmation',
-//             icon: 'pi pi-exclamation-triangle',
-//             defaultFocus: 'accept',
-//             accept,
-//             reject
-//         });
-//     };
-
-//     const confirm2 = () => {
-//         confirmDialog({
-//             message: 'Do you want to delete this record?',
-//             header: 'Delete Confirmation',
-//             icon: 'pi pi-info-circle',
-//             defaultFocus: 'reject',
-//             acceptClassName: 'p-button-danger',
-//             accept,
-//             reject
-//         });
-//     };
-
-//     return (
-//         <>
-//             {/* <Toast ref={toast} /> */}
-//             <ConfirmDialog />
-//             <div className="card flex flex-wrap gap-2 justify-content-center">
-//                 <Button onClick={confirm1} icon="pi pi-check" label="Confirm" className="mr-2"></Button>
-//             </div>
-//         </>
-//     )
-// }
