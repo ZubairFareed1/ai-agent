@@ -95,7 +95,7 @@ export function HistoryCard({item}){
     return(
             <div className={`px-3 ${theme === 'light' ? 'hover:bg-blue-50 border-300' :'hover:surface-800 border-900'}  cursor-pointer border-y-1  flex gap-4 py-3 `}
             onClick={()=>{
-              navigate(`/chatid?id=${id}`)
+              navigate(`/${id}`)
             }}
             >
                 <div className='flex align-items-center'>

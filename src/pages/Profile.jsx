@@ -23,7 +23,7 @@ export default function Profile() {
               <div className="relative inline-block">
                 <img
                   src={profile_picture}
-                  alt=""
+                  alt="Profile Picture"
                   className="w-10rem h-10rem border-circle"
                   style={{ objectFit: "cover" }}
                 />

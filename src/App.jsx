@@ -1,29 +1,85 @@
-import React from 'react'
+// import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Chat from './pages/Chat';
-import Allchat from './pages/Allchat'
+import Allchat from './pages/Allchat';
 import LoginHistory from './pages/LoginHistory';
 import Profile from './pages/Profile';
 import Logout from './pages/Logout';
 import MainLayout from './MainLayout';
-import  Signup  from './pages/Signup';
-import  Login  from './pages/Login';
-
+import Signup from './pages/Signup';
+import Login from './pages/Login';
+import ProtectedRoute from './components/ProtectedRoute';
 
 export default function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<MainLayout><Chat /></MainLayout>} />
-        <Route path="/:chatid" element={<MainLayout><Chat /></MainLayout>} />
-        <Route path="/allchats" element={<MainLayout><Allchat /></MainLayout>} />
-        <Route path="/login_history" element={<MainLayout><LoginHistory /></MainLayout>} />
-        <Route path="/profile" element={<MainLayout><Profile /></MainLayout>} />
-        <Route path="/logout" element={<MainLayout><Logout /></MainLayout>} />
+        {/* Protected Routes */}
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <MainLayout>
+                <Chat />
+              </MainLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/:chatid"
+          element={
+            <ProtectedRoute>
+              <MainLayout>
+                <Chat />
+              </MainLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/allchats"
+          element={
+            <ProtectedRoute>
+              <MainLayout>
+                <Allchat />
+              </MainLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/login_history"
+          element={
+            <ProtectedRoute>
+              <MainLayout>
+                <LoginHistory />
+              </MainLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <MainLayout>
+                <Profile />
+              </MainLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/logout"
+          element={
+            <ProtectedRoute>
+              <MainLayout>
+                <Logout />
+              </MainLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Public Routes */}
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
       </Routes>
-      
     </Router>
-  )
+  );
 }

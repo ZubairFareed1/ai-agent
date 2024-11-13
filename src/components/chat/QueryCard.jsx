@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useTheme } from "../../ThemeContext";
 
 export default function QueryCard() {
@@ -10,8 +10,20 @@ export default function QueryCard() {
   );
 }
 
-function QueryInput({theme}) {
+function QueryInput(theme) {
   const [isFocused, setIsFocused] = useState(false);
+  const [query, setQuery] = useState("");
+
+  const handleQueryChange = (e) => {
+    setQuery(e.target.value);
+  };
+
+  const handleQuerySubmit = (e) => {
+    e.preventDefault();
+    console.log("Query submitted:", query);
+    setQuery("");
+  };
+
   return (
     <div
       className={`flex align-items-center border-1 p-1 mx-2 md:mx-8 ${theme === 'light' ? 'bg-white border-400' : 'border-300'}`}
@@ -31,8 +43,12 @@ function QueryInput({theme}) {
         style={{ outline: "none", border: "none", }}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
+        onChange={handleQueryChange}
+        value={query}
       />
-      <button className="p-2 md:p-3 bg-blue-500 border-none cursor-pointer flex justify-content-center align-items-center border-circle ">
+      <button className="p-2 md:p-3 bg-blue-500 border-none cursor-pointer flex justify-content-center align-items-center border-circle"
+      onClick={handleQuerySubmit}
+      >
         <i className="pi pi-arrow-right text-white text-2xl"></i>
       </button>
     </div>

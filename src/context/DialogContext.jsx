@@ -1,4 +1,5 @@
-import React, { createContext, useState, useContext } from 'react';
+import { createContext, useState, useContext } from 'react';
+import { useAuth } from './AuthContext';
 import { useNavigate } from 'react-router-dom';
 
 // Create Context
@@ -12,6 +13,7 @@ export const useDialog = () => {
 // Provider component to wrap your app and provide context value
 export const DialogProvider = ({ children }) => {
     const navigate = useNavigate();
+    const {logout} = useAuth()
     const [showDialog, setShowDialog] = useState(false);
 
     const handleLogoutClick = () => {
@@ -21,6 +23,8 @@ export const DialogProvider = ({ children }) => {
     const handleConfirmLogout = () => {
         console.log("User logged out");
         setShowDialog(false); // Hide the dialog after logout
+        logout()
+
         navigate('/login');
     };
 

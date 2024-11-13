@@ -5,17 +5,19 @@ import { FaHistory } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
 import { BiLogOut } from "react-icons/bi";
 import { Tooltip as ReactTooltip } from "react-tooltip";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { Dialog } from "primereact/dialog";
 import { Avatar } from "primereact/avatar";
 import avator from "../assets/avator4.webp";
 import { Link, NavLink } from "react-router-dom";
 import { useTheme } from "../ThemeContext";
 import { useDialog } from "../context/DialogContext";
+// import { useAuth } from "../context/AuthContext";
 
 
 export default function Sidebar() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+  // const { logout } = useAuth()
   const {handleLogoutClick} = useDialog();
   const { showDialog, handleConfirmLogout, handleCancelLogout } = useDialog();
   const links = [
@@ -53,7 +55,7 @@ export default function Sidebar() {
       </div>
       <div>
         <ul className="list-none p-0 ">
-          {links.map((link, id) => (
+          {links.map((link) => (
             <React.Fragment key={link.id}>
               <li
                 className={`w-4rem h-4rem border-circle my-4 hover:bg-white-alpha-30 border-1

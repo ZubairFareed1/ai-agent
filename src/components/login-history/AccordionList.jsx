@@ -1,4 +1,3 @@
-import React from "react";
 import { Accordion, AccordionTab } from "primereact/accordion";
 import { Timeline } from "primereact/timeline";
 import "../../global.css";
@@ -82,12 +81,12 @@ function MyAccordion() {
 
   return (
     <div>
-      <Accordion activeIndex={0}>
+      <Accordion activeIndex={0} className="">
         {Object.keys(groupedHistory).map((date) => (
           <AccordionTab header={date} key={date}
-
+          className={`${theme === 'light' ?  "accordion-tab-header-light" : "accordion-tab-header-dark" }`}
           >
-            <Timeline value={groupedHistory[date]} content={(item) =><span>{item.loginTime}</span> } className=""/>
+            <Timeline value={groupedHistory[date]} content={(item) =><span className={`${theme==='light'?'text-800':'text-400'} font-semibold`}>{item.loginTime}</span> } className=""/>
           </AccordionTab>
         ))}
       </Accordion>

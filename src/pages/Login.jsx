@@ -1,5 +1,7 @@
 import { useNavigate } from 'react-router-dom';
-import React, { useState } from 'react'
+import { useState, useEffect } from 'react'
+import axios from 'axios';
+import { useAuth } from '../context/AuthContext';
 
 export default function Login() {
     const [emailFocused, setEmailFocused] = useState(false);
@@ -8,20 +10,46 @@ export default function Login() {
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
-    const submitLoginForm = (e) => {
+    const {login, isAuthenticated} = useAuth()
+
+    const submitLoginForm = async (e) => {
         e.preventDefault()
         if(email === '' || password === ''){
-            alert('Please fill all the fields')
-            return
+          alert('Please fill all the fields')
+          return
         }
-        if(email !== 'zubairahmed@gmail.com' || password !== 'admin123'){
-            alert('Invalid credentials')
-            return
-        }
-        navigate('/')
+        try{
 
+          
+          const response = await axios.post('http://localhost:3000/api/users/login',{email,password})
+          if(response.status === 401){
+            console.error("Invalid email or password")
+        }
+        const data = response.data;
+        if(response.status === 200){
+          console.log(data);
+          login(data.dashboardData, data.token)
+        }
+        if(isAuthenticated){
+          navigate('/')
+          
+        }
+        
+        
+      
+      }catch(err){
+        console.error(err.message)
+      }
         
     }
+
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/'); // Redirect to home page once authenticated
+    }
+  }, [isAuthenticated, navigate]);
+
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
       };
