@@ -84,5 +84,15 @@
     color: #333; 
   } */
 
+  .p-fileupload-choose {
+    padding: 25px 50px;
+    font-size: large;
+  }
+
+  .p-button-label {
+    font-size: 24px;
+
+  }
+
   
  

@@ -9,6 +9,9 @@ import MainLayout from './MainLayout';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import ProtectedRoute from './components/ProtectedRoute';
+import AdminUpload from './pages/AdminUpload';
+import AdminLayout from './components/admin/AdminLayout';
+import PreventWords from './pages/PreventWords';
 
 export default function App() {
   return (
@@ -79,6 +82,18 @@ export default function App() {
         {/* Public Routes */}
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
+
+        {/* Admin Routes */}
+        <Route path='/admin/upload' element={
+          <AdminLayout>
+            <AdminUpload />
+          </AdminLayout>
+          }/>
+          <Route path='/admin/prevent-words' element={
+          <AdminLayout>
+            <PreventWords />
+          </AdminLayout>
+          }/>
       </Routes>
     </Router>
   );

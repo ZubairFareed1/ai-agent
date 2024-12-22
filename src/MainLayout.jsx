@@ -1,4 +1,3 @@
-import React from 'react'
 import Sidebar from './components/Sidebar'
 import { useTheme } from './ThemeContext.jsx';
 import { DialogProvider } from './context/DialogContext.jsx';

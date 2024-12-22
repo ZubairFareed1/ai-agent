@@ -18,7 +18,7 @@ export default function Profile() {
           <div>
             <Header />
           </div>
-          <div className="m-4 border-1 p-2">
+          <div className="m-4 p-2">
             <div className="flex gap-4">
               <div className="relative inline-block">
                 <img
