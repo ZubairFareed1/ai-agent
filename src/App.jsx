@@ -29,7 +29,7 @@ export default function App() {
           }
         />
         <Route
-          path="/:chatid"
+          path="/conversation/:chatid"
           element={
             <ProtectedRoute>
               <MainLayout>
