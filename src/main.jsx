@@ -15,12 +15,14 @@ import App from './App.jsx'
 import './global.css'
 import { ThemeProvider } from './ThemeContext.jsx'
 import { AuthProvider } from './context/AuthContext.jsx';
-
+import { ConversationProvider } from './context/conversationContext.jsx';
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <ThemeProvider>
       <AuthProvider>
+        <ConversationProvider>
          <App />
+        </ConversationProvider>
       </AuthProvider>
     </ThemeProvider>
   </StrictMode>,

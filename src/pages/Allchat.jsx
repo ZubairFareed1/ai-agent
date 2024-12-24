@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+/* eslint-disable react/prop-types */
+import { useState } from "react";
 import Header from "../components/Header";
 import Scrollbars from "rc-scrollbars";
 import { useTheme } from "../ThemeContext";
 import { useNavigate } from "react-router-dom";
 import { timeAgo } from "../utils/time";
 import { MdDeleteOutline } from "react-icons/md";
+// import { useConversation } from "../context/conversationContext";
 
 export default function Allchat() {
   const { theme } = useTheme();
+  // const { fetchConversation, deleteConversation, conversationData } = useConversation();
   const [conversations, setConversations] = useState([
     {
       id: 1,
@@ -98,7 +101,7 @@ export function HistoryCard({ item }) {
           : "hover:surface-800 border-700"
       } border-1  flex gap-4 py-3 border-round-lg `}
       onClick={() => {
-        navigate(`/chatid?id=${id}`);
+        navigate(`/conversation/${id}`);
       }}
     >
       <div className="flex align-items-center">

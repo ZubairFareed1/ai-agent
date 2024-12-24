@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { createContext, useReducer, useContext, useEffect } from 'react';
 
 // Initial State
@@ -5,6 +6,7 @@ const initialState = {
   isAuthenticated: false,
   user: null,
   token: null,
+  conversationData: null,
 };
 
 // Reducer
@@ -23,6 +25,7 @@ const authReducer = (state, action) => {
         isAuthenticated: false,
         user: null,
         token: null,
+        conversationData: null,
       };
     default:
       return state;
@@ -62,6 +65,9 @@ export const AuthProvider = ({ children }) => {
     const logout = () => {
         sessionStorage.removeItem('auth'); // Remove from sessionStorage
         dispatch({ type: 'LOGOUT' });
+        sessionStorage.removeItem('conversationData');
+        sessionStorage.removeItem('conversationId');
+        sessionStorage.removeItem('lastVisitedRoute')
       };
     
   return (

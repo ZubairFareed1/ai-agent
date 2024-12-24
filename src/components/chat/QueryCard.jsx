@@ -1,27 +1,32 @@
 import { useState } from "react";
 import { useTheme } from "../../ThemeContext";
+import { useConversation } from "../../context/conversationContext";
 
 export default function QueryCard() {
   const { theme } = useTheme();
   return (
-    <div className={`border-top-1 border-300 h-5rem md:h-6rem ${theme === "light" ? "bg-white" : "surface-700"} flex justify-content-center align-items-center`}>
+    <div className={`border-top-1 h-5rem md:h-6rem ${theme === "light" ? "bg-white border-400" : "surface-700  border-600"} flex justify-content-center align-items-center`}>
       <QueryInput theme={theme} />
     </div>
   );
 }
 
 function QueryInput(theme) {
+  const { continue_conversation } = useConversation();
   const [isFocused, setIsFocused] = useState(false);
   const [query, setQuery] = useState("");
+  
 
   const handleQueryChange = (e) => {
     setQuery(e.target.value);
   };
 
   const handleQuerySubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault(); 
     console.log("Query submitted:", query);
     setQuery("");
+    const conversation_id = JSON.parse(sessionStorage.getItem('conversationId'))
+    continue_conversation(14, conversation_id, query)
   };
 
   return (
