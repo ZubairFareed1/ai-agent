@@ -1,3 +1,9 @@
+//   {
+//     id: 1,
+//     timestamp: "2024-11-03T12:34:56Z",
+//     role: "user",
+//     message: "How can I handle authorization in a React application?",
+//   },
 /* eslint-disable react/prop-types */
 
 import { useTheme } from "../../ThemeContext";
@@ -5,15 +11,10 @@ import { useConversation } from "../../context/conversationContext";
 import { transformConversationData } from "../../utils/transformConversationData";
 import { useLocation } from "react-router-dom";
 
-//   {
-//     id: 1,
-//     timestamp: "2024-11-03T12:34:56Z",
-//     role: "user",
-//     message: "How can I handle authorization in a React application?",
-//   },
 
 
 export default function Conversation() {
+  const { theme } = useTheme();
   const location = useLocation();
   const { conversationData } = useConversation();
   const formatedConversation = conversationData
@@ -22,8 +23,9 @@ export default function Conversation() {
   return (
     <div className="flex flex-column gap-4 p-4">
       {location.pathname=== "/"?
-        <div className="flex justify-content-center">
-          <h1 className="text-2xl font-bold ">Welcome to ChatGPT</h1>
+        <div className="flex flex-column gap-4 align-items-center justify-content-center">
+          <h1 className={`text-5xl  font-bold ${theme === 'light' ? 'text-gray-700' : 'text-200' } `}>What Can I help with?</h1>
+          <img src="/chat_with_bot1.png" alt="Chat with bot" width={300} />
         </div>
       : formatedConversation.map((message) => (
         <MessageBubble

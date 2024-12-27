@@ -27,7 +27,7 @@ export default function Login() {
         }
         const data = response.data;
         if(response.status === 200){
-          console.log(data);
+          sessionStorage.setItem('user_id', JSON.stringify(data.dashboardData.user.user_id))
           login(data.dashboardData, data.token)
         }
         if(isAuthenticated){

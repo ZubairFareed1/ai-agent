@@ -94,5 +94,10 @@
 
   }
 
+  .p-accordion .p-accordion-content {
+    background-color: #a4a4a4;
+    border: 1px solid #5d5d5d;
+  }
+
   
  

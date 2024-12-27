@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import "../../global.css";
 import { useTheme } from "../../ThemeContext";
 import { useNavigate } from "react-router-dom";
@@ -12,14 +12,16 @@ export default function AllHistory() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const user_id = JSON.parse(sessionStorage.getItem("user_id"))
     const fetchHistory = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3000/api/users/conversation-history/14"
+          `http://localhost:3000/api/users/conversation-history/${user_id}`
         );
         if (!response.ok) throw new Error("Failed to fetch history");
         const data = await response.json();
         setConversationHistory(data.conversations);
+        console.log("fetch history output",);
       } catch (error) {
         console.error(error);
       } finally {
@@ -29,7 +31,7 @@ export default function AllHistory() {
     fetchHistory();
   }, []);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div className={` text-center ${theme=='light'?"text-gray-700":"text-200"}`}>Loading...</div>;
 
   return conversationHistory.length === 0 ? (
     <NoHistory theme={theme} />
@@ -57,6 +59,7 @@ export function HistoryCard({ item }) {
     navigate(`/conversation/${conversation_id}`);
     fetchConversation(conversation_id);
   };
+
 
   return (
     <div

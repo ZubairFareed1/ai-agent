@@ -121,6 +121,7 @@ export default function Sidebar() {
       </div>
        <Dialog
       header="Confirm Logout"
+      className=""
       visible={showDialog}
       style={{ width: '30vw' }} breakpoints={{ '960px': '75vw', '641px': '95vw' }}
       onHide={handleCancelLogout}  // Directly call handleCancelLogout here

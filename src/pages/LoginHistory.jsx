@@ -1,4 +1,3 @@
-import React from "react";
 import Header from "../components/Header";
 import AccordionList from "../components/login-history/AccordionList";
 import { useTheme } from "../ThemeContext";

@@ -27,7 +27,7 @@ export default function App() {
               </MainLayout>
             </ProtectedRoute>
           }
-        />
+          />
         <Route
           path="/conversation/:chatid"
           element={
@@ -37,7 +37,7 @@ export default function App() {
               </MainLayout>
             </ProtectedRoute>
           }
-        />
+          />
         <Route
           path="/allchats"
           element={
@@ -47,7 +47,7 @@ export default function App() {
               </MainLayout>
             </ProtectedRoute>
           }
-        />
+          />
         <Route
           path="/login_history"
           element={
@@ -57,7 +57,7 @@ export default function App() {
               </MainLayout>
             </ProtectedRoute>
           }
-        />
+          />
         <Route
           path="/profile"
           element={
@@ -90,7 +90,7 @@ export default function App() {
           </AdminLayout>
           }/>
           <Route path='/admin/prevent-words' element={
-          <AdminLayout>
+            <AdminLayout>
             <PreventWords />
           </AdminLayout>
           }/>

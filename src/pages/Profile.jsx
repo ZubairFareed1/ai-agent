@@ -1,12 +1,53 @@
-import React from "react";
 import Header from "../components/Header";
 import { useTheme } from "../ThemeContext";
 import { FaCamera } from "react-icons/fa";
 import profile_picture from "../assets/avator4.webp";
 import Scrollbars from "rc-scrollbars";
+import { useEffect, useState } from "react";
 
 export default function Profile() {
   const { theme } = useTheme();
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  useEffect(()=>{
+    
+    const fetchProfileData = async () => {
+      try {
+        const auth = JSON.parse(sessionStorage.getItem('auth'))
+        if (!auth) {
+          throw new Error('User not authenticated');
+
+        }
+        const token = auth.user.token;
+        const userId = auth.user.user.user_id;
+        console.log(userId)
+        const response = await fetch(`http://localhost:3000/api/users/profile/${userId}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          }
+        });
+  
+        if (!response.ok) {
+          throw new Error('Failed to fetch profile data');
+        }
+  
+        const data = await response.json();
+        setFirstName(data.user.first_name);
+        setLastName(data.user.last_name);
+        setEmail(data.user.email);
+        setPassword(data.user.password);
+      } catch (error) {
+        console.error('Error fetching profile data:', error);
+        alert('Failed to fetch profile data. Please try again later.')
+      }
+    };
+  
+    fetchProfileData()
+  },[])
   return (
     <div className="h-screen lg:p-5">
       <div
@@ -37,9 +78,9 @@ export default function Profile() {
                 </div>
               </div>
               <div className="mt-4">
-                <h1 className="text-4xl font-semibold">Sophia Smith</h1>
+                <h1 className="text-4xl font-semibold">{firstName} {lastName}</h1>
                 <p className="text-gray-700 text-base">
-                  sophia.smith@gmail.com
+                  {email}
                 </p>
               </div>
             </div>
@@ -93,10 +134,11 @@ export default function Profile() {
                       </label>
 
                       <input
-                        type="text"
+                        type="email"
                         id="First_name"
                         placeholder="Enter Email Address"
                         className="w-full h-4rem text-xl p-3 bg-gray-100 border-1 border-500 border-round-md"
+                        value={email}
                       />
                     </div>
                   </div>
@@ -110,10 +152,11 @@ export default function Profile() {
                       </label>
 
                       <input
-                        type="text"
+                        type="password"
                         id="First_name"
                         placeholder="Enter Password"
                         className="w-full h-4rem text-xl p-3 bg-gray-100 border-1 border-500 border-round-md"
+                        
                       />
                     </div>
                   </div>
