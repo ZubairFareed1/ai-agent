@@ -16,7 +16,7 @@ export default function Login() {
         e.preventDefault()
         if(email === '' || password === ''){
           alert('Please fill all the fields')
-          return
+          // return
         }
         try{
 

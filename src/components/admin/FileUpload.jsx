@@ -8,7 +8,7 @@ export default function FileUploadComponent() {
 
   const onUpload = () => {
     toast.current.show({
-      severity: "info",
+      severity: "success",
       summary: "Success",
       detail: "File Uploaded",
     });

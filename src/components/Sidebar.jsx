@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "primereact/button";
 import { BiSolidMessageDots } from "react-icons/bi";
 import { FaHistory } from "react-icons/fa";
@@ -13,11 +13,39 @@ import { Link, NavLink } from "react-router-dom";
 import { useTheme } from "../ThemeContext";
 import { useDialog } from "../context/DialogContext";
 // import { useAuth } from "../context/AuthContext";
+import dummy_profile from "../assets/dummy_profile.jpeg";
 
 
 export default function Sidebar() {
   // const navigate = useNavigate();
   // const { logout } = useAuth()
+  const [profilePicture, setProfilePicture] = useState(dummy_profile);
+  useEffect(()=>{
+    const userProfile = async () => {
+      try{
+
+        const auth = JSON.parse(sessionStorage.getItem('auth'));
+        const token = auth.user.token;
+        const userId = auth.user.user.user_id;
+        const response = await fetch(`http://localhost:3000/api/users/profile_picture/${userId}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data = await response.json();
+      if (response.ok) {
+        console.log(data);
+        setProfilePicture(data.profile_picture_url || dummy_profile)
+      }
+    }catch(error){
+      console.error('Error fetching profile picture:', error);
+    }
+
+    }
+    userProfile()
+  },[])
   const {handleLogoutClick} = useDialog();
   const { showDialog, handleConfirmLogout, handleCancelLogout } = useDialog();
   const links = [
@@ -117,7 +145,7 @@ export default function Sidebar() {
         </ul>
       </div>
       <div>
-        <Avatar image={avator} size="large" shape="circle" />
+        <Avatar image={profilePicture} size="large" shape="circle" />
       </div>
        <Dialog
       header="Confirm Logout"

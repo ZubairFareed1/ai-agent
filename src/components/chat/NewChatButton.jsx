@@ -9,7 +9,7 @@ export default function NewChatButton() {
   const navigate = useNavigate();
   const { theme } = useTheme();
   return (
-    <button className={`w-full p-3 flex align-items-center justify-content-center gap-4 border-none border-round-md ${theme === 'light' ? 'bg-gray-200' : 'surface-900'} cursor-pointer shadow-500`}
+    <button className={`shadow-2 w-full p-3 flex align-items-center justify-content-center gap-4 border-1 hover:shadow-2 border-round-md ${theme === 'light' ? 'bg-gray-400 hover:bg-gray-200 border-500' : 'surface-900 hover:surface-600 border-700'} cursor-pointer shadow-500`}
     onClick={() => {
         navigate('/');
         location.pathname='/'

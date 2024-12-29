@@ -10,6 +10,7 @@ export default function AllHistory() {
   const { theme } = useTheme();
   const [conversationHistory, setConversationHistory] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { conversationData} = useConversation();
 
   useEffect(() => {
     const user_id = JSON.parse(sessionStorage.getItem("user_id"))
@@ -21,6 +22,7 @@ export default function AllHistory() {
         if (!response.ok) throw new Error("Failed to fetch history");
         const data = await response.json();
         setConversationHistory(data.conversations);
+        sessionStorage.setItem('conversation_history', JSON.stringify(data.conversations))
         console.log("fetch history output",);
       } catch (error) {
         console.error(error);
@@ -29,7 +31,7 @@ export default function AllHistory() {
       }
     };
     fetchHistory();
-  }, []);
+  }, [conversationData]);
 
   if (loading) return <div className={` text-center ${theme=='light'?"text-gray-700":"text-200"}`}>Loading...</div>;
 
@@ -45,7 +47,7 @@ export default function AllHistory() {
 }
 
 export function HistoryCard({ item }) {
-  const { fetchConversation } = useConversation();
+  const { fetchConversation, currentHistoryLoadHandler } = useConversation();
   const {
     conversation_id = "",
     first_query = "No query available",
@@ -59,6 +61,9 @@ export function HistoryCard({ item }) {
     navigate(`/conversation/${conversation_id}`);
     fetchConversation(conversation_id);
   };
+  useEffect(() => {
+    currentHistoryLoadHandler(historyClickHandler)
+  }, [])
 
 
   return (

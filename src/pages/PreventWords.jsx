@@ -9,7 +9,6 @@ import Scrollbars from "rc-scrollbars";
 import { GoPlus } from "react-icons/go";
 import { useEffect, useState } from "react";
 
-
 // data shape
 // [
 //   {id:1, word:"hello"},
@@ -18,20 +17,22 @@ import { useEffect, useState } from "react";
 // ]
 
 export default function PreventWords() {
-  const [wordsData, setWordsData] = useState([])
-  useEffect(() => {
-    const fetchWords = async () => {
-      const response = await fetch(
-        "http://localhost:3000/api/admin/prevent-words"
-      );
-      const data = await response.json();
-      console.log(data);
-      setWordsData(data);
-    };
-    fetchWords();
-  }, [])
-  const { theme } = useTheme();
+  const [wordsData, setWordsData] = useState([]);
   const [word, setWord] = useState("");
+  const fetchWords = async () => {
+    const response = await fetch(
+      "http://localhost:3000/api/admin/prevent-words"
+    );
+    const data = await response.json();
+    console.log(data);
+    setWordsData(data);
+  };
+
+  useEffect(() => {
+    fetchWords();
+  }, []);
+
+  const { theme } = useTheme();
 
   const wordBodyTemplate = (rowData) => {
     return (
@@ -43,11 +44,18 @@ export default function PreventWords() {
   const actionBodyTemplate = (rowData) => {
     return (
       <div className="flex align-items-center gap-2">
-        <Button onClick={()=>{handleDeleteWord(rowData.id)}} severity="danger">Delete</Button>
+        <Button
+          onClick={() => {
+            handleDeleteWord(rowData.id);
+          }}
+          severity="danger"
+        >
+          Delete
+        </Button>
       </div>
     );
   };
-  const handleDeleteWord = async (id)=>{
+  const handleDeleteWord = async (id) => {
     const response = await fetch(
       "http://localhost:3000/api/admin/prevent-words",
       {
@@ -58,13 +66,7 @@ export default function PreventWords() {
         body: JSON.stringify({ id }),
       }
     );
-    const data = await response.json();
-    console.log(data);
-    if (data.status === "success") {
-      setWordsData(wordsData.filter((word) => word.id !== id));
-    }
-    
-  }
+  };
 
   const handleWordSubmit = async () => {
     if (word.trim() === "") return;
@@ -83,6 +85,7 @@ export default function PreventWords() {
       setWord("");
     }
     setWord("");
+    fetchWords();
   };
 
   return (
@@ -144,26 +147,58 @@ export default function PreventWords() {
             {/* Table */}
 
             <Scrollbars
-              className=" mt-5 border-top-1"
+              className=" mt-5 border-top-1 "
               style={{ height: "400px" }} // Set the desired height
             >
               <div className="flex justify-content-center px-4">
                 <DataTable
                   value={wordsData}
                   className="w-full"
-                  stripedRows
                   // tableStyle={{ minWidth: '50rem' }}
                   showGridlines
                 >
-                  <Column field="id" header="ID"></Column>
+                  <Column
+                    field="id"
+                    header="ID"
+                    className={` ${
+                      theme === "light"
+                        ? "text-gray-700 bg-surface-200"
+                        : "text-300 bg-gray-700"
+                    }`}
+                    headerClassName={` ${
+                      theme === "light"
+                        ? "text-gray-700 bg-gray-300"
+                        : "text-300 bg-gray-800"
+                    }`}
+                  ></Column>
                   <Column
                     field="word"
+                    headerClassName={` ${
+                      theme === "light"
+                        ? "text-gray-700 bg-gray-300"
+                        : "text-300 bg-gray-800"
+                    }`}
                     header="Word"
                     body={wordBodyTemplate}
+                    className={` ${
+                      theme === "light"
+                        ? "text-gray-700 bg-surface-200"
+                        : "text-300 bg-gray-700"
+                    }`}
                   ></Column>
                   <Column
                     header="Action"
                     body={actionBodyTemplate}
+                    headerClassName={` ${
+                      theme === "light"
+                        ? "text-gray-700 bg-gray-300"
+                        : "text-300 bg-gray-800"
+                    }`}
+                    className={` ${
+                      theme === "light"
+                        ? "text-gray-700 bg-surface-200"
+                        : "text-300 bg-gray-700"
+                    }`}
                   ></Column>
                 </DataTable>
               </div>

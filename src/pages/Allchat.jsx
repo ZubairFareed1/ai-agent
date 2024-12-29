@@ -13,36 +13,35 @@ export default function Allchat() {
   const { theme } = useTheme();
   // const { fetchConversation, deleteConversation, conversationData } = useConversation();
 
+  const [conversationHistory, setConversationHistory] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-    const [conversationHistory, setConversationHistory] = useState([]);
-    const [loading, setLoading] = useState(true);
-  
-    useEffect(() => {
-      const user_id = JSON.parse(sessionStorage.getItem("user_id"))
-      const fetchHistory = async () => {
-        try {
-          const response = await fetch(
-            `http://localhost:3000/api/users/conversation-history/${user_id}`
-          );
-          if (!response.ok) throw new Error("Failed to fetch history");
-          const data = await response.json();
-          setConversationHistory(data.conversations);
-          console.log(data.conversations);
-          console.log("fetch history output",);
-        } catch (error) {
-          console.error(error);
-        } finally {
-          setLoading(false);
-        }
-      };
-      fetchHistory();
-    }, []);
+  useEffect(() => {
+    const user_id = JSON.parse(sessionStorage.getItem("user_id"));
+    const fetchHistory = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:3000/api/users/conversation-history/${user_id}`
+        );
+        if (!response.ok) throw new Error("Failed to fetch history");
+        const data = await response.json();
+        setConversationHistory(data.conversations);
+        console.log(data.conversations);
+        console.log("fetch history output");
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchHistory();
+  }, []);
 
   return loading ? (
-  <div>
-    <p>Loading...</p>
-  </div>
-):(  
+    <div>
+      <p>Loading...</p>
+    </div>
+  ) : (
     <div className="h-screen lg:px-3 lg:py-5 ">
       <div
         className={`h-full flex flex-column border-1 border-round-lg ${
@@ -52,25 +51,54 @@ export default function Allchat() {
         <div className="">
           <Header />
         </div>
-        <Scrollbars className="h-full ">
+        {
+          conversationHistory.length === 0 && (
+            <div className="flex justify-content-center mt-5">
+              <p className="text-gray-500 text-xl">No conversation history</p>
+            </div>
+          )
+        }
+        {
+          conversationHistory.length !== 0 && 
+        (<Scrollbars className="h-full ">
           {conversationHistory.map((item) => (
-            <HistoryCard item={item} key={item.conversation_id} />
+            <HistoryCard
+            item={item}
+            key={item.conversation_id}
+            setConversationHistory={setConversationHistory}
+            />
           ))}
-        </Scrollbars>
+          </Scrollbars>)
+        }
       </div>
     </div>
   );
 }
 
-export function HistoryCard({ item }) {
+export function HistoryCard({ item, setConversationHistory }) {
   const { conversation_id, first_query, first_response, started_at } = item;
   const { theme } = useTheme();
   const navigate = useNavigate();
-  const deleteHandler = (e) => {
-    e.stopPropagation()
-    
+
+  const { fetchConversation } = useConversation();
+
+  const deleteHandler = async (e, conversation_id) => {
+    e.stopPropagation();
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/users/delete_conversation/${conversation_id}`,
+        {
+          method: "DELETE",
+        }
+      );
+      if (!response.ok) throw new Error("Failed to delete conversation");
+      setConversationHistory((prevHistory) =>
+        prevHistory.filter((item) => item.conversation_id !== conversation_id)
+      );
+    } catch (error) {
+      console.error(error);
+    }
   };
-  const { fetchConversation } = useConversation()
 
   return (
     <div
@@ -110,8 +138,19 @@ export function HistoryCard({ item }) {
             <p className="m-0 truncate-text text-gray-500">{first_response}</p>
           </div>
           <div>
-            <button className={`w-3rem h-3rem flex align-items-center justify-content-center border-circle border-1 ${theme === 'light' ? 'surface-300 border-500' : ' surface-700 border-900'} cursor-pointer`} onClick={deleteHandler}>
-              <MdDeleteOutline className={`text-3xl ${theme === 'light' ? 'text-700' : 'text-300'}`} />
+            <button
+              className={`w-3rem h-3rem flex align-items-center justify-content-center border-circle border-1 ${
+                theme === "light"
+                  ? "surface-300 border-500"
+                  : "surface-700 border-900"
+              } cursor-pointer`}
+              onClick={(e) => deleteHandler(e, conversation_id)} // Make sure you're passing conversation_id here
+            >
+              <MdDeleteOutline
+                className={`text-3xl ${
+                  theme === "light" ? "text-700" : "text-300"
+                }`}
+              />
             </button>
           </div>
         </div>

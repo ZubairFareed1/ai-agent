@@ -84,6 +84,13 @@ export const ConversationProvider = ({ children }) => {
           Authorization: `Bearer ${auth.user.token}`, // Add token to Authorization header
         },
       });
+      if(response.status=='201'){
+        await fetchConversation(response.data.conversation.conversation_id)
+        sessionStorage.setItem("conversationId", JSON.stringify(response.data.conversation.conversation_id));
+      
+        currentHistoryLoadHandler
+        // window.location.href = `/conversation/${response.data.conversation.conversation_id}`;
+      }
       const data = response.data;
       console.log(data);
       // Update state and session storage
@@ -95,18 +102,32 @@ export const ConversationProvider = ({ children }) => {
       console.error("Error fetching conversation:", error);
     }
   };
-  
-  return (
-    <ConversationContext.Provider
+
+
+
+
+  const currentHistoryLoadHandler = async (handlerFunction) => {
+    handlerFunction(conversationId);
+    
+  }
+
+
+    
+    return (
+      <ConversationContext.Provider
       value={{
         conversationData,
         fetchConversation,
         conversationId,
         continue_conversation,
         new_conversation,
+        currentHistoryLoadHandler,
+
       }}
-    >
+      >
       {children}
     </ConversationContext.Provider>
   );
 };
+
+    
