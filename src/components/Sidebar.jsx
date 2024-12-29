@@ -8,7 +8,6 @@ import { Tooltip as ReactTooltip } from "react-tooltip";
 // import { useNavigate } from "react-router-dom";
 import { Dialog } from "primereact/dialog";
 import { Avatar } from "primereact/avatar";
-import avator from "../assets/avator4.webp";
 import { Link, NavLink } from "react-router-dom";
 import { useTheme } from "../ThemeContext";
 import { useDialog } from "../context/DialogContext";
@@ -46,6 +45,7 @@ export default function Sidebar() {
     }
     userProfile()
   },[])
+  
   const {handleLogoutClick} = useDialog();
   const { showDialog, handleConfirmLogout, handleCancelLogout } = useDialog();
   const links = [
