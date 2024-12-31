@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react'
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
@@ -64,11 +64,11 @@ export default function Login() {
         <div className=' w-full h-full sm:border-round-lg sm:w-25rem sm:h-30rem border-1 bg-white-alpha-80 ' style={{backdropFilter:'blur(5px)'}}>
             <div>
                 <div className='flex justify-content-center align-items-center'>
-                    <h2 className='text-4xl'>SenseiAi</h2>
+                    <h2 className='text-4xl'>Smart ai</h2>
                 </div>
                 <div className='flex justify-content-center align-items-center'>
                     <span className='text-center'>
-                    Sign in to continue to you SenceAi dashboard
+                    Sign in to continue Smart Ai dashboard
                     </span>
 
                 </div>
@@ -101,6 +101,11 @@ export default function Login() {
                     </div>
                     <div className={` border-round-md overflow-hidden`} >
                       <button className='p-3 w-full text-base bg-blue-400 border-none text-white cursor-pointer font-semibold' type='submit'>Sign in</button>
+                    </div>
+                    <div className='flex justify-content-center align-items-center'>
+                        <span className='text-center'>
+                        Don&apos;t have an account? <NavLink to='/register' className='text-blue-400 cursor-pointer'>Register</NavLink>
+                        </span>
                     </div>
 
                    

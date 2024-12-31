@@ -80,7 +80,7 @@ export default function App() {
         />
 
         {/* Public Routes */}
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/register" element={<Signup />} />
         <Route path="/login" element={<Login />} />
 
         {/* Admin Routes */}
