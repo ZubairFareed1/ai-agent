@@ -56,16 +56,29 @@ export default function PreventWords() {
     );
   };
   const handleDeleteWord = async (id) => {
-    const response = await fetch(
-      "http://localhost:3000/api/admin/prevent-words",
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
+    try{
+
+      const response = await fetch(
+        "http://localhost:3000/api/admin/prevent-words",
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
         },
         body: JSON.stringify({ id }),
       }
     );
+    const data = await response.json();
+    if (data.status === "success") {
+      // Update the local state without refetching
+      const updatedWords = wordsData.filter((word) => word.id !== id);
+      setWordsData(updatedWords);
+  } else {
+      console.error("Failed to delete word:", data.message);
+  }
+  }catch(error){
+    console.log(error)
+  }
   };
 
   const handleWordSubmit = async () => {

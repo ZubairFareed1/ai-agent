@@ -42,7 +42,7 @@ export default function Allchat() {
       <p>Loading...</p>
     </div>
   ) : (
-    <div className="h-screen lg:px-3 lg:py-5 ">
+    <div className="h-screen pb-8 lg:px-3 lg:py-5 ">
       <div
         className={`h-full flex flex-column border-1 border-round-lg ${
           theme === "light" ? "bg-white  border-400 " : "surface-800 border-700"

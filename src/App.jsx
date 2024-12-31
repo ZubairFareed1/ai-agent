@@ -12,6 +12,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import AdminUpload from './pages/AdminUpload';
 import AdminLayout from './components/admin/AdminLayout';
 import PreventWords from './pages/PreventWords';
+import KnowledgeBase from './pages/KnowledgeBase';
 
 export default function App() {
   return (
@@ -92,6 +93,11 @@ export default function App() {
           <Route path='/admin/prevent-words' element={
             <AdminLayout>
             <PreventWords />
+          </AdminLayout>
+          }/>
+          <Route path='/admin/knowledge_base' element={
+            <AdminLayout>
+            <KnowledgeBase />
           </AdminLayout>
           }/>
       </Routes>

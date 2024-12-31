@@ -144,7 +144,7 @@ export default function Signup() {
                   }}
                 >
                   <input
-                    type="text"
+                    type="password"
                     placeholder="Password"
                     className="w-full py-3 px-3 border-none text-xl "
                     style={{

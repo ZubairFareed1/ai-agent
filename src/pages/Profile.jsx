@@ -1,7 +1,6 @@
 import Header from "../components/Header";
 import { useTheme } from "../ThemeContext";
 import { FaCamera } from "react-icons/fa";
-import profile_picture from "../assets/avator4.webp";
 import dummy_profile from '../assets/dummy_profile.jpeg'
 import Scrollbars from "rc-scrollbars";
 import { useEffect, useState } from "react";
@@ -135,7 +134,7 @@ export default function Profile() {
   };
 
   return (
-    <div className="h-screen lg:p-5">
+    <div className="h-screen pb-8 lg:p-5">
       <div
         className={`h-full flex flex-column ${
           theme === "light" ? "bg-white  border-400" : " border-700 surface-800"

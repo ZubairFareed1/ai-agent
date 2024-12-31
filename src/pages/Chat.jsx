@@ -34,9 +34,9 @@ export default function Chat() {
 
   return (
     <>
-      <div className="flex h-screen lg:p-3 gap-5">
+      <div className="flex h-screen pb-8 lg:p-3 gap-5">
         {/* history section */}
-        <div className=" lg:w-4 hidden h-full lg:flex flex-column">
+        <div className="  lg:w-4 hidden h-full lg:flex flex-column  ">
           <div
             className={`h-full border-1 ${
               theme === "light"
@@ -45,7 +45,7 @@ export default function Chat() {
             }  border-round-lg flex flex-column overflow-hidden`}
           >
             <div
-              className={`p-3 ${theme === "light" ? "" : "border-bottom-1"}`}
+              className={`p-3 pb-10 ${theme === "light" ? "" : "border-bottom-1"}`}
             >
               <NewChatButton />
             </div>

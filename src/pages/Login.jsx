@@ -16,14 +16,20 @@ export default function Login() {
         e.preventDefault()
         if(email === '' || password === ''){
           alert('Please fill all the fields')
-          // return
+          return
         }
         try{
 
           
           const response = await axios.post('http://localhost:3000/api/users/login',{email,password})
-          if(response.status === 401){
-            console.error("Invalid email or password")
+
+          console.log(response)
+         
+        if(response.status === 500){
+          alert("Internal server error")
+        }
+        if(response.status === 401){
+          alert("Invalid email or password")
         }
         const data = response.data;
         if(response.status === 200){
@@ -88,7 +94,7 @@ export default function Login() {
                           />
                     </div>
                      <div className={` border-round-md overflow-hidden`} style={{outline: passwordFocused ? "2px solid #007bff" : 'none'}} >
-                        <input type="text" placeholder='Password' className='w-full py-3 px-3 border-none text-xl '
+                        <input type="password" placeholder='Password' className='w-full py-3 px-3 border-none text-xl '
                         style={{
                             outline:'none',
                             border:'none'

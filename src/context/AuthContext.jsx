@@ -68,6 +68,8 @@ export const AuthProvider = ({ children }) => {
         sessionStorage.removeItem('conversationData');
         sessionStorage.removeItem('conversationId');
         sessionStorage.removeItem('lastVisitedRoute')
+        sessionStorage.removeItem('user_id');
+        sessionStorage.removeItem('conversation_history');
       };
     
   return (
